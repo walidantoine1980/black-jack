@@ -1,25 +1,12 @@
 {
-  "name": "casino-aoun-blackjack-super-ai",
+  "name": "casino-aoun-blackjack-ai",
   "version": "2.0.0",
-  "description": "Simulateur de Blackjack Super-IA (Solveur Combinatoire Exact + Dueling DQN 16D + Auto-Kelly) avec Laboratoire d'Audit Statistique JSON et Académie Mathématique.",
-  "main": "index.html",
+  "description": "Casino Aoun Blackjack Super-IA, Laboratoire d'Audit JSON & Académie Mathématique",
+  "main": "server.js",
   "scripts": {
-    "start": "npx serve . -l 8080",
-    "dev": "npx serve . -l 8080",
-    "train-python": "python python/train_q_learning_solver.py"
+    "start": "node server.js"
   },
-  "keywords": [
-    "blackjack",
-    "reinforcement-learning",
-    "q-learning",
-    "dueling-dqn",
-    "combinatorial-solver",
-    "kelly-criterion",
-    "card-counting",
-    "hi-lo",
-    "monte-carlo-simulation",
-    "casino-aoun"
-  ],
-  "author": "Antoine Aoun",
-  "license": "MIT"
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
