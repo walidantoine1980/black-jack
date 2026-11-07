@@ -675,13 +675,13 @@
       const div = document.createElement('div');
       if (hidden) {
         div.className = 'playing-card hidden-card';
-        div.innerHTML = `<div style="font-size:0.9rem;">🂠</div>`;
+        div.innerHTML = `<div style="font-size:1.35rem; filter:drop-shadow(0 2px 4px rgba(0,0,0,0.5));">🂠</div>`;
       } else {
         div.className = `playing-card ${card.isRed ? 'red' : 'black'}`;
         div.innerHTML = `
-          <div class="card-corner-top">${card.rank}<br>${card.suit}</div>
+          <div class="card-corner-top"><span class="card-rank">${card.rank}</span><span class="card-suit-mini">${card.suit}</span></div>
           <div class="card-suit-center">${card.suit}</div>
-          <div class="card-corner-bottom">${card.rank}</div>
+          <div class="card-corner-bottom"><span class="card-rank">${card.rank}</span><span class="card-suit-mini">${card.suit}</span></div>
         `;
       }
       return div;

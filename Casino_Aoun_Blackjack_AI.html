@@ -345,28 +345,39 @@
 
     .cards-row {
       display: flex;
-      gap: 8px;
-      min-height: 92px;
+      gap: 10px;
+      min-height: 104px;
       align-items: center;
       justify-content: center;
       flex-wrap: wrap;
     }
 
-    /* Playing Card Visual */
+    /* Playing Card Visual — High Contrast & Ultra-Clear Readability */
     .playing-card {
-      width: 62px;
-      height: 88px;
-      background: linear-gradient(145deg, #ffffff, #e6e9ef);
-      border-radius: 7px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.55);
+      width: 72px;
+      height: 102px;
+      background: #ffffff;
+      border-radius: 9px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.65), 0 1px 3px rgba(0, 0, 0, 0.3), inset 0 0 0 1px #e2e8f0;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 5px 6px;
-      font-weight: 800;
+      padding: 5px 7px;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-weight: 900;
       position: relative;
       animation: dealCard 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
-      border: 1px solid rgba(0,0,0,0.2);
+      border: 2px solid #cbd5e1;
+      overflow: hidden;
+    }
+
+    .playing-card::after {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      border: 1px solid rgba(148, 163, 184, 0.28);
+      border-radius: 5px;
+      pointer-events: none;
     }
 
     @keyframes dealCard {
@@ -380,37 +391,69 @@
       }
     }
 
-    .playing-card.red { color: #d32f2f; }
-    .playing-card.black { color: #1b1f24; }
+    .playing-card.red {
+      color: #dc2626;
+      border-color: #fca5a5;
+    }
+    .playing-card.black {
+      color: #0f172a;
+      border-color: #94a3b8;
+    }
 
     .playing-card.hidden-card {
-      background: repeating-linear-gradient(
-        45deg,
-        #1e293b,
-        #1e293b 6px,
-        #0f172a 6px,
-        #0f172a 12px
-      );
+      background:
+        radial-gradient(circle at center, rgba(212, 175, 55, 0.22) 0%, transparent 65%),
+        repeating-linear-gradient(
+          45deg,
+          #1e293b,
+          #1e293b 6px,
+          #0f172a 6px,
+          #0f172a 12px
+        );
       border: 2px solid var(--gold);
       color: var(--gold);
       align-items: center;
       justify-content: center;
     }
 
-    .card-corner-top {
-      font-size: 0.85rem;
-      line-height: 1;
+    .playing-card.hidden-card::after {
+      border-color: rgba(212, 175, 55, 0.45);
     }
-    .card-suit-center {
-      font-size: 1.55rem;
-      align-self: center;
-      line-height: 1;
+
+    .card-corner-top {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      align-self: flex-start;
+      line-height: 0.95;
+      z-index: 1;
     }
     .card-corner-bottom {
-      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       align-self: flex-end;
       transform: rotate(180deg);
+      line-height: 0.95;
+      z-index: 1;
+    }
+    .card-rank {
+      font-size: 1.08rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+    }
+    .card-suit-mini {
+      font-size: 0.82rem;
       line-height: 1;
+      margin-top: 1px;
+    }
+    .card-suit-center {
+      font-size: 2.1rem;
+      align-self: center;
+      line-height: 1;
+      margin: auto 0;
+      filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.08));
+      z-index: 1;
     }
 
     /* 5 Players Seats */
@@ -559,19 +602,27 @@
       justify-content: center;
       align-items: center;
       flex-wrap: wrap;
-      gap: 4px;
-      my: 6px;
-      min-height: 92px;
+      gap: 6px;
+      margin: 6px 0;
+      min-height: 96px;
     }
 
     .seat-cards .playing-card {
-      width: 52px;
-      height: 76px;
-      padding: 4px 5px;
+      width: 62px;
+      height: 88px;
+      padding: 4px 6px;
+    }
+
+    .seat-cards .playing-card .card-rank {
+      font-size: 0.98rem;
+    }
+
+    .seat-cards .playing-card .card-suit-mini {
+      font-size: 0.74rem;
     }
 
     .seat-cards .playing-card .card-suit-center {
-      font-size: 1.25rem;
+      font-size: 1.7rem;
     }
 
     .seat-footer {
@@ -3490,13 +3541,13 @@
       const div = document.createElement('div');
       if (hidden) {
         div.className = 'playing-card hidden-card';
-        div.innerHTML = `<div style="font-size:0.9rem;">🂠</div>`;
+        div.innerHTML = `<div style="font-size:1.35rem; filter:drop-shadow(0 2px 4px rgba(0,0,0,0.5));">🂠</div>`;
       } else {
         div.className = `playing-card ${card.isRed ? 'red' : 'black'}`;
         div.innerHTML = `
-          <div class="card-corner-top">${card.rank}<br>${card.suit}</div>
+          <div class="card-corner-top"><span class="card-rank">${card.rank}</span><span class="card-suit-mini">${card.suit}</span></div>
           <div class="card-suit-center">${card.suit}</div>
-          <div class="card-corner-bottom">${card.rank}</div>
+          <div class="card-corner-bottom"><span class="card-rank">${card.rank}</span><span class="card-suit-mini">${card.suit}</span></div>
         `;
       }
       return div;
